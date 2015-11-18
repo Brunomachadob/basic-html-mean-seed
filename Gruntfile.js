@@ -5,9 +5,10 @@ module.exports = function (grunt) {
   var allClientJS = [
     'public/scripts/*.module.js',
     'public/scripts/*.controller.js',
-    'public/scripts/**/*.js'
+    'public/scripts/**/*.js',
+    '!public/**/*.spec.js',
   ];
-  
+
   var allJS = allClientJS.concat(['server/*.js', 'server/**/*.js']);
 
   // Project configuration.
@@ -117,6 +118,12 @@ module.exports = function (grunt) {
         tasks: ['default']
       }
     },
+
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js'
+      }
+    },
     
     // run watch and nodemon at the same time
     concurrent: {
@@ -138,6 +145,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-karma');
   
   //Tasks
   grunt.registerTask('default', ['clean:before', 'jshint', 'uglify', 'html2js', 'concat', 'less', 'cssmin', 'clean:after']);
@@ -145,6 +153,8 @@ module.exports = function (grunt) {
   grunt.registerTask('serve', ['concurrent']);
 
   grunt.registerTask('dev', ['default', 'serve']);
+  
+  grunt.registerTask('test', ['default', 'karma']);
 
 
 };
