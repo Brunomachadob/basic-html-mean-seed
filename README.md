@@ -8,21 +8,27 @@ Additionally, it uses Bower, Grunt and Material Angular.
 Clone the basic-html-mean-seed repository, run `npm install && bower install` to grab the dependencies, and start the party!
 
 ### Bower dependencies
+```
 -->  angular: "~1.4.7",
 -->  angular-route: "~1.4.7",
 -->  angular-material: "~0.11.4"
+```
 
 ### Running the app
 
 To run the app, 
-    ```
-    node app.js
-    ```
+```
+grunt
+```
+
+This task will lint your javascripts from client and server and start the server with watch on your styles and scripts.
 
 ## Directory Layout
     
     app.js              --> app config
     package.json        --> for npm
+    bower.json          --> for bower
+    Gruntfile.js        --> for grunt
     public/             --> all of the files to be used in on the client side
       assets/           --> app assets
         css/              --> css files
