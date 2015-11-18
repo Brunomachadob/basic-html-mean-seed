@@ -1,0 +1,31 @@
+{
+  "name": "basic-html-mean-seed",
+  "description": "Basic HTML MEAN seed",
+  "main": "./server/app.js",
+  "authors": [
+    "brunomachadob"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "express",
+    "node",
+    "mean"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "~1.4.7",
+    "angular": "~1.4.7",
+    "angular-material": "~0.11.4"
+  }
+}

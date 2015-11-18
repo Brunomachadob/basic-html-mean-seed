@@ -1,0 +1,16 @@
+{
+  "name": "basic-html-mean-seed",
+  "version": "0.0.1",
+  "private": false,
+  "dependencies": {
+    "express": "3.0.0"
+  },
+  "devDependencies": {
+    "bower": "^1.6.5",
+    "grunt": "^0.4.5",
+    "grunt-concurrent": "^2.1.0",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-nodemon": "^0.4.0"
+  }
+}
