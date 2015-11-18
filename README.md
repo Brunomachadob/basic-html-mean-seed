@@ -7,6 +7,15 @@ Additionally, it uses Bower, Grunt and Material Angular.
 
 Clone the basic-html-mean-seed repository, run `npm install && bower install` to grab the dependencies, and start the party!
 
+### Dependencies
+
+It depends on
+```
+-->  grunt
+-->  bower
+-->  karma
+```
+
 ### Bower dependencies
 ```
 -->  angular: "~1.4.7",
