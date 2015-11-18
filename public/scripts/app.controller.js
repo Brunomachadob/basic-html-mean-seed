@@ -9,7 +9,7 @@
 	function AppCtrl($scope, MyService) {
 		var self = this;
 
-		MyService.getAppName()
+		MyService.getAppNameAsync()
 			.then(function (appName) {
 				self.name = appName;
 			}, function () {
