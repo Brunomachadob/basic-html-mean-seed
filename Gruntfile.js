@@ -148,7 +148,9 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-karma');
   
   //Tasks
-  grunt.registerTask('default', ['clean:before', 'jshint', 'uglify', 'html2js', 'concat', 'less', 'cssmin', 'clean:after']);
+  grunt.registerTask('default', ['build']);
+  
+  grunt.registerTask('build', ['clean:before', 'jshint', 'uglify', 'html2js', 'concat', 'less', 'cssmin', 'clean:after', 'karma']);
 
   grunt.registerTask('serve', ['concurrent']);
 

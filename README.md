@@ -16,15 +16,29 @@ Clone the basic-html-mean-seed repository, run `npm install && bower install` to
 
 ### Grunt tasks
 
-**To build the application,**
+**default task,**
 ```
 grunt 
+```
+Initially this task will call the build task, but feel free to personalize it.
+
+**To build the application,**
+```
+grunt build
 ```
 
 This task will lint your javascripts from client and server,
 compile your **less** files,
-convert your **tpl.html** templates to **javascript**
-and minify and concat your **client scripts** and **css**
+convert your **tpl.html** templates to **javascript**,
+minify and concat your **client scripts** and **css**
+and run the unit tests.
+
+**To test the app**
+```
+grunt test
+```
+
+This task will run the unit tests of the app
 
 **To run the app,**
 ```
@@ -47,6 +61,9 @@ This task will run the **default** and **serve** tasks
     package.json        --> for npm
     bower.json          --> for bower
     Gruntfile.js        --> for grunt
+    karma.conf.js       --> for karma
+    typings/            --> for VSCode
+    dist/               --> Where your projects file will be after the build task
     public/             --> all of the files to be used in on the client side
       assets/           --> app assets
         css/              --> css files
