@@ -4,16 +4,15 @@
 
 	angular
 		.module('myApp')
-		.controller('AppCtrl', ['$scope', '$http', AppCtrl]);
+		.controller('AppCtrl', ['$scope', 'MyService', AppCtrl]);
 
-	function AppCtrl($scope, $http) {
+	function AppCtrl($scope, MyService) {
 		var self = this;
-		
-		$http({ method: 'GET', url: '/api/name' })
-			.success(function (data, status, headers, config) {
-				self.name = data.name;
-			})
-			.error(function (data, status, headers, config) {
+
+		MyService.getAppName()
+			.then(function (appName) {
+				self.name = appName;
+			}, function () {
 				self.name = 'Error!';
 			});
 	}

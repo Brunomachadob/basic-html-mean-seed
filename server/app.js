@@ -17,7 +17,8 @@ var clientPath = path.normalize(__dirname + '/..');
 app.configure(function() {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-    
+
+    app.use(express.static(path.join(__dirname, '../dist')));    
     app.use(express.static(path.join(__dirname, '../public')));
     app.use(express.static(path.join(__dirname, '../bower_components')));
     
@@ -34,7 +35,9 @@ app.configure('production', function(){
 
 // Routes
 app.get('/', routes.index);
-app.get('/partials/:name', routes.partials);
+
+//Your app should set all templates in your js with html2js
+//app.get('/partials/:name', routes.partials);
 
 // JSON API
 app.get('/api/name', api.name);

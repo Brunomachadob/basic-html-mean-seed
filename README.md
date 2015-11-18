@@ -14,14 +14,32 @@ Clone the basic-html-mean-seed repository, run `npm install && bower install` to
 -->  angular-material: "~0.11.4"
 ```
 
-### Running the app
+### Grunt tasks
 
-To run the app, 
+**To build the application,**
 ```
-grunt
+grunt 
 ```
 
-This task will lint your javascripts from client and server and start the server with watch on your styles and scripts.
+This task will lint your javascripts from client and server,
+compile your **less** files,
+convert your **tpl.html** templates to **javascript**
+and minify and concat your **client scripts** and **css**
+
+**To run the app,**
+```
+grunt serve
+```
+
+This task will start the server with watch on your styles and scripts.
+
+**To build and run**
+```
+grunt dev
+```
+
+This task will run the **default** and **serve** tasks
+
 
 ## Directory Layout
     
