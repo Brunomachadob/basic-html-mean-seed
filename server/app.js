@@ -6,8 +6,14 @@
 
 var express = require('express'),
     path = require('path'),
-    routes = require('./routes'),
-    api = require('./routes/api');
+    mongoose = require('mongoose'),
+    passport = require('passport'),
+    session = require('express-session'),
+    favicon = require('serve-favicon');
+
+var routes = require('./routes'),
+    api = require('./routes/api'),
+    passportCfg = require('./config/passport');
 
 var app = module.exports = express();
 
@@ -15,14 +21,37 @@ var clientPath = path.normalize(__dirname + '/..');
 
 // Configuration
 app.configure(function() {
+    app.use(favicon(path.join(clientPath, 'public', 'favicon.ico')));
+    
     app.use(express.bodyParser());
     app.use(express.methodOverride());
+
+    app.use(session(
+        {
+            secret: 'myApp',
+            resave: true,
+            saveUninitialized: true
+        }
+    ));
+
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     app.use(express.static(path.join(__dirname, '../dist')));    
     app.use(express.static(path.join(__dirname, '../public')));
     app.use(express.static(path.join(__dirname, '../bower_components')));
+
+    app.use(function (req, res, next) {
+        if (req.user) {
+            res.cookie('$appUser', JSON.stringify(req.user));
+        }
+    
+        next();
+    });
     
     app.use(app.router);
+    
+    passportCfg();
 });
 
 app.configure('development', function(){
