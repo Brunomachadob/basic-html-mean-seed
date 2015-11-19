@@ -111,6 +111,8 @@ initiated by **grunt prod**
         partial2.controller.js   --> demo controller
         components/            --> app components directory
         services/              --> app components directory
+            myservice.service.js      --> example service
+            myservice.service.spec.js --> example service test
       views/
         index.html        --> main page for app
         partials/         --> angular view partials (partial jade templates)
@@ -121,7 +123,7 @@ initiated by **grunt prod**
         api.js            --> route for serving JSON
         index.js          --> route for serving HTML pages and partials
     
- ## Production
+## Production
  
  Remember, for production use npm install --production, or set your NODE_ENV to production.
  Doing that, only the production dependences will be installed, ignoring for example the test suit. 
