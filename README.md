@@ -14,6 +14,7 @@ It depends on
 -->  grunt
 -->  bower
 -->  karma
+-->  mongo
 ```
 
 ### Bower dependencies
@@ -61,7 +62,32 @@ This task will start the server with watch on your styles and scripts.
 grunt dev
 ```
 
-This task will run the **default** and **serve** tasks
+This task will run the **build** and **serve** tasks
+
+**To build and run prod**
+```
+grunt prod
+```
+
+This task will run the **build** and **forever:prod:start** tasks,
+the forever task will make the server run on daemon mode.
+To stop or restart the server, check the instructions 
+
+**To kill prod server**
+```
+grunt prodk
+```
+This task will run the **forever:prod:stop** task,
+stopping a server that is running on daemon mode,
+initiated by **grunt prod**
+
+**To restart prod server**
+```
+grunt prodr
+```
+This task will run the **forever:prod:restart** task,
+restarting a server that is running on daemon mode,
+initiated by **grunt prod**
 
 
 ## Directory Layout
@@ -95,3 +121,7 @@ This task will run the **default** and **serve** tasks
         api.js            --> route for serving JSON
         index.js          --> route for serving HTML pages and partials
     
+ ## Production
+ 
+ Remember, for production use npm install --production, or set your NODE_ENV to production.
+ Doing that, only the production dependences will be installed, ignoring for example the test suit. 

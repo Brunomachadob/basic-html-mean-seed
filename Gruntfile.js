@@ -11,6 +11,8 @@ module.exports = function (grunt) {
 
   var allJS = allClientJS.concat(['server/*.js', 'server/**/*.js']);
 
+  var startScript = './server/app.js';
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -18,8 +20,11 @@ module.exports = function (grunt) {
     tpModuleName: '<%= pkg.appModule %>.tpls',
     tplFile: 'dist/app.tpls.js',
 
-    distCssFile: 'dist/app.min.css',
-    distLessFile: 'dist/app.less',
+    distCssFile: 'dist/assets/app.min.css',
+    distLessFile: 'dist/assets/app.less',
+
+    distImgFile: 'dist/assets/img/',
+    distSvgFile: 'dist/assets/svg/',
 
     clean: {
       before: ['dist/{,*/}*'],
@@ -91,6 +96,21 @@ module.exports = function (grunt) {
       }
     },
 
+    copy: {
+      img: {
+        expand: true,
+        cwd: 'public/assets/img',
+        src: '*.*',
+        dest: '<%= distImgFile %>'
+      },
+      svg: {
+        expand: true,
+        cwd: 'public/assets/svg',
+        src: '*.*',
+        dest: '<%= distSvgFile %>'
+      },
+    },
+
     concat: {
       concatTpls: {
         dest: 'dist/app.min.js',
@@ -105,17 +125,18 @@ module.exports = function (grunt) {
     // configure nodemon
     nodemon: {
       dev: {
-        script: './server/app.js'
+        script: startScript
       }
     },
 
     watch: {
       css: {
-        files: ['public/assets/css/*.less', 'public/scripts/components/**/*.less']
+        files: ['public/assets/css/*.less', 'public/scripts/components/**/*.less'],
+        tasks: ['build']
       },
       js: {
         files: allJS,
-        tasks: ['default']
+        tasks: ['build']
       }
     },
 
@@ -131,6 +152,15 @@ module.exports = function (grunt) {
         logConcurrentOutput: true
       },
       tasks: ['nodemon', 'watch']
+    },
+
+    forever: {
+      prod: {
+        options: {
+          index: startScript,
+          logDir: 'server-logs'
+        }
+      },
     }
 
   });
@@ -146,17 +176,33 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-forever');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   
   //Tasks
   grunt.registerTask('default', ['build']);
-  
-  grunt.registerTask('build', ['clean:before', 'jshint', 'uglify', 'html2js', 'concat', 'less', 'cssmin', 'clean:after', 'karma']);
 
   grunt.registerTask('serve', ['concurrent']);
 
-  grunt.registerTask('dev', ['default', 'serve']);
-  
-  grunt.registerTask('test', ['default', 'karma']);
+  grunt.registerTask('dev', ['build', 'serve']);
+
+  grunt.registerTask('prod', ['buildprod', 'forever:prod:start']);
+
+  grunt.registerTask('prodk', ['forever:prod:stop']);
+
+  grunt.registerTask('prodr', ['forever:prod:restart']);
+
+  grunt.registerTask('test', ['build', 'karma']);
+
+  grunt.registerTask('buildprod', ['build:true']);
+
+  grunt.registerTask('build', 'Build task', function (prodEnv) {
+    grunt.task.run(['clean:before', 'jshint', 'uglify', 'html2js', 'concat', 'less', 'cssmin', 'copy', 'clean:after']);
+
+    if (!prodEnv) {
+      grunt.task.run(['karma']);
+    }
+  });
 
 
 };
